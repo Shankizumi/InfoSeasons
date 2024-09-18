@@ -1,6 +1,6 @@
 import React from "react";
 import apiKeys from "./apiKeys";
-import Clock from "react-live-clock";
+import Clock from 'react-live-clock';
 import Forcast from "./forcast";
 import loader from "./assets/WeatherIcons.gif";
 import ReactAnimatedWeather from "react-animated-weather";
