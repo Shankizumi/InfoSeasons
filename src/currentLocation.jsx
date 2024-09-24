@@ -1,9 +1,11 @@
 import React from "react";
 import apiKeys from "./apiKeys";
-import Clock from 'react-live-clock';
+import Clock from "react-live-clock";
 import Forcast from "./forcast";
 import loader from "./assets/WeatherIcons.gif";
+import { motion } from "framer-motion";
 import ReactAnimatedWeather from "react-animated-weather";
+
 const dateBuilder = (d) => {
   let months = [
     "January",
@@ -86,16 +88,6 @@ class Weather extends React.Component {
     clearInterval(this.timerID);
   }
 
-  // tick = () => {
-  //   this.getPosition()
-  //   .then((position) => {
-  //     this.getWeather(position.coords.latitude, position.coords.longitude)
-  //   })
-  //   .catch((err) => {
-  //     this.setState({ errorMessage: err.message });
-  //   });
-  // }
-
   getPosition = (options) => {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -115,9 +107,10 @@ class Weather extends React.Component {
       humidity: data.main.humidity,
       main: data.weather[0].main,
       country: data.sys.country,
-      // sunrise: this.getTimeFromUnixTimeStamp(data.sys.sunrise),
 
+      // sunrise: this.getTimeFromUnixTimeStamp(data.sys.sunrise),
       // sunset: this.getTimeFromUnixTimeStamp(data.sys.sunset),
+
     });
     switch (this.state.main) {
       case "Haze":
@@ -155,11 +148,28 @@ class Weather extends React.Component {
   render() {
     if (this.state.temperatureC) {
       return (
-        <React.Fragment>
-          <div className="city">
+        <>
+          <motion.div
+            initial={{ x: -20 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 1 }}
+            className="city"
+          >
             <div className="title">
-              <h2>{this.state.city}</h2>
-              <h3>{this.state.country}</h3>
+              <motion.h2
+                initial={{ x: 10 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 1, delay: 1.5 }}
+              >
+                {this.state.city}
+              </motion.h2>
+              <motion.h3
+                initial={{ x: 10 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 1, delay: 1.5 }}
+              >
+                {this.state.country}
+              </motion.h3>
             </div>
             <div className="mb-icon">
               {" "}
@@ -171,7 +181,12 @@ class Weather extends React.Component {
               />
               <p>{this.state.main}</p>
             </div>
-            <div className="date-time">
+            <motion.div
+              initial={{ y: 7 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="date-time"
+            >
               <div className="dmy">
                 <div id="txt"></div>
                 <div className="current-time">
@@ -186,22 +201,32 @@ class Weather extends React.Component {
                 {/* <span className="slash">/</span>
                 {this.state.temperatureF} &deg;F */}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           <Forcast icon={this.state.icon} weather={this.state.main} />
-        </React.Fragment>
+        </>
       );
     } else {
       return (
         <React.Fragment>
           <img src={loader} style={{ width: "50%", WebkitUserDrag: "none" }} />
-          <h3 style={{ color: "white", fontSize: "22px", fontWeight: "600" }}>
+          <motion.h3
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 3 }}
+            style={{ color: "white", fontSize: "22px", fontWeight: "600" }}
+          >
             Detecting your location
-          </h3>
-          <h3 style={{ color: "white", marginTop: "10px" }}>
+          </motion.h3>
+          <motion.h3
+            initial={{ y: -10 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 3 }}
+            style={{ color: "white", marginTop: "10px" }}
+          >
             Your current location wil be displayed on the App <br></br> & used
             for calculating Real time weather.
-          </h3>
+          </motion.h3>
         </React.Fragment>
       );
     }

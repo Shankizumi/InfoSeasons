@@ -2,6 +2,7 @@ import React, { useState, useEffect, Component } from "react";
 import axios from "axios";
 import apiKeys from "./apiKeys";
 import ReactAnimatedWeather from "react-animated-weather";
+import { motion } from "framer-motion";
 
 function Forcast(props) {
   const [query, setQuery] = useState("");
@@ -44,7 +45,12 @@ function Forcast(props) {
   }, []);
 
   return (
-    <div className="forecast">
+    <motion.div
+      initial={{ y: 15 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 1, delay: 1.5 }}
+      className="forecast"
+    >
       <div className="forecast-icon">
         <ReactAnimatedWeather
           icon={props.icon}
@@ -116,7 +122,7 @@ function Forcast(props) {
           )}
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 }
 export default Forcast;
