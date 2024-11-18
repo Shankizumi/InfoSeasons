@@ -10,7 +10,7 @@ function App() {
       </div>
       <div className="footer-info">
         Developed by{" "}
-        <a target="_blank" href="https://www.gauravghai.dev/">
+        <a target="_blank" href="https://portfolio-shank.netlify.app/">
           Shashank Gupta
         </a>{" "}
         | Powered by{" "}
